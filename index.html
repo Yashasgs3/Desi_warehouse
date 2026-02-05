@@ -2644,7 +2644,7 @@
                             <span class="balloon-sparkle">✨</span>
                             <span class="balloon-sparkle">✨</span>
                             <span class="balloon-emoji">🎁</span>
-                            <span class="sticker-text">10LB RICE<br>@ $8.99</span>
+                            <span class="sticker-text">RICE<br>@ $8.99</span>
                         </div>
                     </div>
                     <img src="images/pack10.jpeg" alt="Fresh Fruits" height="50px" width="50px" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
@@ -2672,7 +2672,7 @@
                             <span class="balloon-sparkle">✨</span>
                             <span class="balloon-sparkle">✨</span>
                             <span class="balloon-emoji">🎁</span>
-                            <span class="sticker-text">10LB RICE<br>@ $13.99</span>
+                            <span class="sticker-text">RICE<br>@ $13.99</span>
                         </div>
                     </div>
                      <img src="images/pack5.jpeg" alt="Organic Produce" height="50px" width="50px" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
@@ -2705,7 +2705,7 @@
     <div class="topbar">
         <div class="container">
             <div class="topbar-left">
-                <i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="eeab838f8782aeab968f839e828bc08d8183">desiwarehouse@gmail.com</span></a>
+                <a href="https://reddys.farm/"><i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="eeab838f8782aeab968f839e828bc08d8183">Reddy's Farm</span></a>
             </div>
             <div class="topbar-right">
                 <a href="#" id="privacy-link">Privacy Policy</a>
@@ -3071,7 +3071,7 @@
                                     <span class="balloon-sparkle">✨</span>
                                     <span class="balloon-sparkle">✨</span>
                                     <span class="balloon-emoji">🎁</span>
-                                    <span class="sticker-text">10LB RICE<br>@ $8.99</span>
+                                    <span class="sticker-text">RICE<br>@ $8.99</span>
                                 </div>
                             </div>
                         </div>
@@ -3099,7 +3099,7 @@
                                     <span class="balloon-sparkle">✨</span>
                                     <span class="balloon-sparkle">✨</span>
                                     <span class="balloon-emoji">🎁</span>
-                                    <span class="sticker-text">10LB RICE<br>@ $13.99</span>
+                                    <span class="sticker-text">RICE<br>@ $13.99</span>
                                 </div>
                             </div>
                         </div>
@@ -3178,7 +3178,7 @@
                         <p class="product-category">Subscription Package</p>
                         <h3 class="product-name">15 Items Package</h3>
                         <p class="product-description">15 premium items delivered monthly. Choose from Reddys, Laxmis, and Deep brands.</p>
-                        <p class="product-bonus-text balloon-pulse">🎁 <strong>Bonus:</strong> 0lb Rice - FREE! (Reddys + Laxmis + Deep)</p>
+                        <p class="product-bonus-text balloon-pulse">🎁 <strong>Bonus:</strong> 10lb Rice - FREE! (Reddys + Laxmis + Deep)</p>
                         <div class="product-quantity">
                             <label>Qty:</label>
                             <input type="number" class="quantity-input" value="1" min="1" max="99">
@@ -3194,7 +3194,7 @@
                 </div>
 
                 <!-- 15-Day Package -->
-                <div class="product-card fade-in" data-id="2" data-name="10 Items Package" data-price="59.99" data-category="Packages">
+                <div class="product-card fade-in" data-id="2" data-name="10 Items Package" data-price="49.99" data-category="Packages">
                     <div class="product-image">
                         <img src="images/pack10.jpeg" alt="10 Items Package">
                         <span class="product-badge">🎈 Popular</span>
@@ -3204,7 +3204,7 @@
                                 <span class="balloon-sparkle">✨</span>
                                 <span class="balloon-sparkle">✨</span>
                                 <span class="balloon-emoji">🎁</span>
-                                <span class="sticker-text">10LB RICE<br>@ $8.99</span>
+                                <span class="sticker-text">RICE<br>@ $8.99</span>
                             </div>
                         </div>
                     </div>
@@ -3238,7 +3238,7 @@
                                 <span class="balloon-sparkle">✨</span>
                                 <span class="balloon-sparkle">✨</span>
                                 <span class="balloon-emoji">🎁</span>
-                                <span class="sticker-text">10LB RICE<br>@ $13.99</span>
+                                <span class="sticker-text">RICE<br>@ $13.99</span>
                             </div>
                         </div>
                     </div>
@@ -3658,7 +3658,7 @@
             // Define bonuses for subscription packages
             const bonuses = {
                 '1': { text: '10lb Premium Rice - FREE!', value: 0 },
-                '2': { text: '10lb Premium Rice - $9.99', value: 9.99 },
+                '2': { text: '10lb Premium Rice - $8.99', value: 8.99 },
                 '3': { text: '10lb Premium Rice - $13.99', value: 13.99 }
             };
             
@@ -3759,16 +3759,19 @@
             
             // Calculate totals
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const bonusTotal = cart.reduce((sum, item) => {
+                if (item.bonus && item.bonus.value > 0) {
+                    return sum + (item.bonus.value * item.quantity);
+                }
+                return sum;
+            }, 0);
             const deliveryFee = 0.00;
-            const total = subtotal + deliveryFee;
+            const total = subtotal + bonusTotal + deliveryFee;
             
             // Update price breakdown
             document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('summary-delivery').textContent = `$${deliveryFee.toFixed(2)}`;
-            document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
             
             // Handle bonus items if any
-            const bonusTotal = cart.reduce((sum, item) => sum + (item.bonusValue || 0), 0);
             const summaryBonusRow = document.getElementById('summary-bonus-row');
             if (bonusTotal > 0) {
                 document.getElementById('summary-bonus').textContent = `$${bonusTotal.toFixed(2)}`;
@@ -3776,6 +3779,9 @@
             } else {
                 summaryBonusRow.style.display = 'none';
             }
+            
+            document.getElementById('summary-delivery').textContent = `$${deliveryFee.toFixed(2)}`;
+            document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
             
             // Close cart modal and show order summary
             cartModal.classList.remove('active');
@@ -3846,8 +3852,8 @@
                 }
                 return sum;
             }, 0);
-            const shipping = (subtotal + bonusCost) > 50 ? 0 : 5.00;
-            const total = subtotal + shipping;
+            const shipping = 0; // Free shipping for all products
+            const total = subtotal + bonusCost + shipping;
             
             // Update summary
 
